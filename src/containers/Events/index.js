@@ -18,26 +18,28 @@ const EventList = () => {
     setCurrentPage(1);
     setType(eType);
   };
-
   let filteredEvents = []; // Variable initialisé avec un tableau vide
   let totalPages = 0; // Variable initialisé à 0
+
+  // Tri des événements par date dans l'ordre croissant
+  const sortedEvents = data?.events?.sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
 
   // Filtrage des événements en fonction du type de catégorie sélectionné
   if (!type) {
     // Si aucun type n'est sélectionné, afficher tous les événements
     const startIndex = (currentPage - 1) * PER_PAGE;
-    const endIndex = Math.min(startIndex + PER_PAGE, data?.events?.length || 0);
-    filteredEvents = data?.events?.slice(startIndex, endIndex) || [];
-    totalPages = Math.ceil((data?.events?.length || 0) / PER_PAGE);
+    const endIndex = Math.min(startIndex + PER_PAGE, sortedEvents?.length || 0);
+    filteredEvents = sortedEvents?.slice(startIndex, endIndex) || [];
+    totalPages = Math.ceil((sortedEvents?.length || 0) / PER_PAGE);
   } else {
     // Sinon, filtrer les événements par type de catégorie
-    filteredEvents = data?.events?.filter((event) => event.type === type) || [];
+    filteredEvents = sortedEvents?.filter((event) => event.type === type) || [];
   }
-  // Tri des événements par date
-  filteredEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
 
   // Liste des types de catégories disponibles
-  const typeList = new Set(data?.events?.map((event) => event.type) || []);
+  const typeList = new Set(sortedEvents?.map((event) => event.type) || []);
 
   // Fonction pour gérer le changement de page
   const handleClickPage = (page) => {
