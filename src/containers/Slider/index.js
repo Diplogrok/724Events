@@ -18,7 +18,6 @@ const Slider = () => {
   });
   return (
     <div className="SlideCardList">
-      {console.log("Contenu de byDateDesc:", byDateDesc)}
       {byDateDesc?.map((event, idx) => (
         <>
           <div
