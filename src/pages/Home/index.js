@@ -17,7 +17,7 @@ const Page = () => {
 
   const currentDate = new Date(); // Obtenez la date actuelle
 
-  let lastEvent = null; 
+  let lastEvent = null;
 
   // Vérifie si nous avons des données d'événements et s'il y a au moins un événement
   if (data && data.events && data.events.length > 0) {
