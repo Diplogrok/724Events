@@ -23,6 +23,11 @@ const Slider = () => {
     nextCard();
   });
 
+  // Fonction pour gérer les changements de sélection des boutons radio
+  const handleRadioChange = (selectedIndex) => {
+    setIndex(selectedIndex);
+  };
+
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
@@ -49,6 +54,7 @@ const Slider = () => {
               type="radio"
               name="radio-button"
               checked={index === idx}
+              onChange={() => handleRadioChange(idx)} // Gérer les changements de sélection
             />
           ))}
         </div>

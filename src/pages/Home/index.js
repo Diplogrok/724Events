@@ -13,7 +13,29 @@ import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  const { last } = useData();
+  const { data } = useData();
+
+  const currentDate = new Date(); // Obtenez la date actuelle
+
+  let lastEvent = null; 
+
+  // Vérifie si nous avons des données d'événements et s'il y a au moins un événement
+  if (data && data.events && data.events.length > 0) {
+    // Filtre les événements pour ne garder que ceux qui ont eu lieu avant la date actuelle
+    const pastEvents = data.events.filter(
+      (event) => new Date(event.date) < currentDate
+    );
+
+    // Si nous avons des événements passés, trouvons celui avec la date la plus récente
+    if (pastEvents.length > 0) {
+      lastEvent = pastEvents.reduce((prevEvent, currentEvent) => {
+        const prevDate = new Date(prevEvent.date);
+        const currentDateEvent = new Date(currentEvent.date);
+        return currentDateEvent > prevDate ? currentEvent : prevEvent;
+      });
+    }
+  }
+
   return (
     <>
       <header>
@@ -114,9 +136,9 @@ const Page = () => {
         <div className="col presta">
           <h3>Notre dernière prestation</h3>
           <EventCard
-            imageSrc={last?.cover}
-            title={last?.title}
-            date={new Date(last?.date)}
+            imageSrc={lastEvent?.cover}
+            title={lastEvent?.title}
+            date={new Date(lastEvent?.date)}
             small
             label="boom"
           />
