@@ -27,16 +27,26 @@ describe("When Form is created", () => {
 });
 
 describe("When a page is created", () => {
-  it("a list of events is displayed", () => {
-    // to implement
+  it("a list of events is displayed", async () => {
+    render(<Home />);
+    const servicesContainer = screen.getByTestId("services-container");
+    expect(servicesContainer).toBeInTheDocument();
   });
+
   it("a list a people is displayed", () => {
-    // to implement
+    render(<Home />);
+    const peopleList = screen.getAllByRole("listitem");
+    expect(peopleList).toHaveLength(5);
   });
   it("a footer is displayed", () => {
-    // to implement
-  });
-  it("an event card, with the last event, is displayed", () => {
-    // to implement
+    render(<Home />);
+    const contactTitle = screen.getByText("Contactez-nous");
+    const address = screen.getByText("45 avenue de la République, 75000 Paris");
+    const phoneNumber = screen.getByText("01 23 45 67 89");
+    const email = screen.getByText("contact@724events.com");
+    expect(contactTitle).toBeInTheDocument();
+    expect(address).toBeInTheDocument();
+    expect(phoneNumber).toBeInTheDocument();
+    expect(email).toBeInTheDocument();
   });
 });

@@ -45,7 +45,7 @@ const Page = () => {
         <section className="SliderContainer">
           <Slider />
         </section>
-        <section className="ServicesContainer">
+        <section className="ServicesContainer" data-testid="services-container">
           <h2 className="Title">Nos services</h2>
           <p>Nous organisons des événements sur mesure partout dans le monde</p>
           <div className="ListContainer">
@@ -137,6 +137,7 @@ const Page = () => {
           <h3>Notre dernière prestation</h3>
           <EventCard
             imageSrc={lastEvent?.cover}
+            imageAlt="lastImage"
             title={lastEvent?.title}
             date={new Date(lastEvent?.date)}
             small
