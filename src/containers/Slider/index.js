@@ -10,7 +10,7 @@ const Slider = () => {
 
   // Vérifier si data et data.focus sont définis
   const byDateDesc = data?.focus?.sort((evtA, evtB) =>
-    new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
+    new Date(evtB.date) < new Date(evtA.date) ? -1 : 1
   );
 
   // Fonction pour passer à la prochaine carte après 5 secondes
