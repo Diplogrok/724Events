@@ -23,7 +23,7 @@ const EventList = () => {
 
   // Tri des événements par date dans l'ordre croissant
   const sortedEvents = data?.events?.sort(
-    (a, b) => new Date(a.date) - new Date(b.date)
+    (a, b) => new Date(b.date) - new Date(a.date)
   );
 
   // Filtrage des événements en fonction du type de catégorie sélectionné
