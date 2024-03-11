@@ -21,7 +21,7 @@ const EventList = () => {
   let filteredEvents = []; // Variable initialisé avec un tableau vide
   let totalPages = 0; // Variable initialisé à 0
 
-  // Tri des événements par date dans l'ordre croissant
+  // Tri des événements par date dans l'ordre décroissant
   const sortedEvents = data?.events?.sort(
     (a, b) => new Date(b.date) - new Date(a.date)
   );
@@ -34,8 +34,20 @@ const EventList = () => {
     filteredEvents = sortedEvents?.slice(startIndex, endIndex) || [];
     totalPages = Math.ceil((sortedEvents?.length || 0) / PER_PAGE);
   } else {
+    const startIndex = (currentPage - 1) * PER_PAGE;
+    const endIndex = Math.min(
+      startIndex + PER_PAGE,
+      sortedEvents?.filter((event) => event.type === type).length || 0
+    );
     // Sinon, filtrer les événements par type de catégorie
-    filteredEvents = sortedEvents?.filter((event) => event.type === type) || [];
+    filteredEvents =
+      sortedEvents
+        ?.filter((event) => event.type === type)
+        ?.slice(startIndex, endIndex) || [];
+    totalPages = Math.ceil(
+      (sortedEvents?.filter((event) => event.type === type).length || 0) /
+        PER_PAGE
+    );
   }
 
   // Liste des types de catégories disponibles
